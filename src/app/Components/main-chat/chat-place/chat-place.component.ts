@@ -26,7 +26,7 @@ export class ChatPlaceComponent implements OnInit {
   webSocketAPI: WebSocketAPI;
 
   MassageInput = '';
-  mmm = '';
+  example = '';
   massages = [];
 
   constructor() {
@@ -48,9 +48,9 @@ export class ChatPlaceComponent implements OnInit {
   SendMassage() {
     const sendDate = this.date.getTime();
 
-    this.massages.push('<div class=\'message\'>' + '12' + '</div>');
-    console.log('dfsdf' + this.MassageInput);
-    document.getElementById('Input').nodeValue = '';
+    // this.massages.push('<div class=\'message\'>' + '12' + '</div>');
+    console.log('massege is: ' + this.MassageInput);
+    // document.getElementById('Input').nodeValue = '';
     this.sendMessage(this.MassageInput);
 
   }
@@ -73,11 +73,10 @@ export class ChatPlaceComponent implements OnInit {
 
   sendMessage(message) {
     this.webSocketAPI._send(message);
-    $('#input').val('');
   }
 
   massageFormat(message) {
-    this.mmm = message;
+    this.example = message;
   }
 
 
