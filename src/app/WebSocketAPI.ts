@@ -7,6 +7,7 @@ export class WebSocketAPI {
   topic = '/send/message';
   stompClient: any;
   chatComponent: ChatPlaceComponent;
+  that = this;
 
   constructor(chatComponent: ChatPlaceComponent) {
     this.chatComponent = chatComponent;
@@ -16,39 +17,38 @@ export class WebSocketAPI {
     console.log('Initialize WebSocket Connection');
     const ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
-    const ythis = this;
-    // tslint:disable-next-line:only-arrow-functions
-    ythis.stompClient.connect({}, function(frame) {
-      // tslint:disable-next-line:only-arrow-functions
-      ythis.stompClient.subscribe(ythis.topic, function(sdkEvent) {
-        ythis.onMessageReceived(sdkEvent);
+    // tslint:disable-next-line:variable-name only-arrow-functions
+    this.that.stompClient.connect({}, function(Frame) {
+      this.that.stompClient.subscribe(this.that.topic, function(sdkEvent) {
+        this.that.onMessageReceived(sdkEvent);
       });
-    }, this.errorCallBack);
+
+    });
   }
 
-  _disconnect() {
-    if (this.stompClient !== null) {
-      this.stompClient.disconnect();
-    }
-    console.log('Disconnected');
-  }
 
-  // on error, schedule a reconnection attempt
-  errorCallBack(error) {
-    console.log('errorCallBack -> ' + error);
-    setTimeout(() => {
-      this._connect();
-    }, 5000);
-  }
+  // _disconnect() {
+  //   if (this.stompClient !== null) {
+  //     this.stompClient.disconnect();
+  //   }
+  //   console.log('Disconnected');
+  // }
+  // // on error, schedule a reconnection attempt
+  // errorCallBack(error) {
+  //   console.log('errorCallBack -> ' + error);
+  //   setTimeout(() => {
+  //     this._connect();
+  //   }, 5000);
+  // }
 
 
   _send(message) {
     console.log('calling logout api via web socket');
-    this.stompClient.send('/app/hello', {}, JSON.stringify(message));
+    this.stompClient.send('/app/chat', {}, JSON.stringify(message));
   }
 
   onMessageReceived(message) {
     console.log('Message Recieved from Server :: ' + message);
-    this.chatComponent.massageFormat(JSON.stringify(message.body));
+    this.chatComponent.pushMassage(JSON.stringify(message.body));
   }
 }

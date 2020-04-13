@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../classes/User';
 import {UsersService} from '../../../services/users.service';
 import {WebSocketAPI} from '../../../WebSocketAPI';
@@ -25,15 +25,17 @@ export class ChatPlaceComponent implements OnInit {
   date = new Date();
   webSocketAPI: WebSocketAPI;
 
-  MassageInput = '';
+  @Input() messageInput = '';
+  messageOnTheScreen: string;
   example = '';
-  massages = [];
+  messages = [];
 
   constructor() {
-    //  this.initializeWebSocketConnection();
 
+
+    // this.webSocketAPI = new WebSocketAPI(new ChatPlaceComponent());
+    // this.webSocketAPI._connect();
   }
-
 
   ngOnInit(): void {
     if (UsersService.prototype.getUser() !== undefined) {
@@ -41,43 +43,38 @@ export class ChatPlaceComponent implements OnInit {
     } else {
       this.user.Usernew('Admin', 'Admin');
     }
-    this.webSocketAPI = new WebSocketAPI(new ChatPlaceComponent());
-    this.webSocketAPI._connect();
-  }
-
-  SendMassage() {
-    const sendDate = this.date.getTime();
-
-    // this.massages.push('<div class=\'message\'>' + '12' + '</div>');
-    console.log('massege is: ' + this.MassageInput);
-    // document.getElementById('Input').nodeValue = '';
-    this.sendMessage(this.MassageInput);
 
   }
 
 
-  // initializeWebSocketConnection() {
-  //   const ws = new SockJS(this.serverUrl);
-  //   this.stompClient = Stomp.over(ws);
-  //   const that = this;
-  //   // tslint:disable-next-line:only-arrow-functions
-  //   this.stompClient.connect({}, function(frame) {
-  //     that.stompClient.subscribe('/chat', (message) => {
-  //       if (message.body) {
-  //         $('.chat').append('<div class=\'message\'>' + message.body + '</div>');
-  //         console.log(message.body);
-  //       }
-  //     });
-  //   });
-  // }
+  SendMassage(input: string) {
+    this.messageInput = input;
+    console.log('massage is: ' + this.messageInput);
+    this.sendMessage(this.messageInput);
+    this.pushMassage(this.messageInput);
+  }
 
   sendMessage(message) {
-    this.webSocketAPI._send(message);
+    console.log('sending message:');
+  //  this.webSocketAPI._send(message);
   }
 
-  massageFormat(message) {
-    this.example = message;
+  pushMassage(message: string) {
+
+    console.log('pushing message:');
+    if (message !== '') {
+      const sendDate = this.date.getHours() + ':' + this.date.getMinutes();
+      console.log('in');
+      this.messages.push(sendDate + '  ' + this.user.GetUserName() + '-  ' + message);
+      this.messageInput = '';
+      // console.log(this.messages[0]);
+    }
   }
+
+
+  // massageFormat(message) {
+  //   this.example = message;
+  // }
 
 
 }
