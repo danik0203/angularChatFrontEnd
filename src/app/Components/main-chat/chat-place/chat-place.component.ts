@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../../classes/User';
 import {UsersService} from '../../../services/users.service';
+import {WebSocketAPI} from '../../../WebSocketAPI';
 
 
 import * as Stomp from 'stompjs';
@@ -22,12 +23,15 @@ export class ChatPlaceComponent implements OnInit {
 
   user = new User();
   date = new Date();
+  webSocketAPI: WebSocketAPI;
 
   MassageInput = '';
+  mmm = '';
   massages = [];
 
   constructor() {
-    this.initializeWebSocketConnection();
+    //  this.initializeWebSocketConnection();
+
   }
 
 
@@ -37,6 +41,8 @@ export class ChatPlaceComponent implements OnInit {
     } else {
       this.user.Usernew('Admin', 'Admin');
     }
+    this.webSocketAPI = new WebSocketAPI(new ChatPlaceComponent());
+    this.webSocketAPI._connect();
   }
 
   SendMassage() {
@@ -50,24 +56,28 @@ export class ChatPlaceComponent implements OnInit {
   }
 
 
-  initializeWebSocketConnection() {
-    const ws = new SockJS(this.serverUrl);
-    this.stompClient = Stomp.over(ws);
-    const that = this;
-    // tslint:disable-next-line:only-arrow-functions
-    this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe('/chat', (message) => {
-        if (message.body) {
-          $('.chat').append('<div class=\'message\'>' + message.body + '</div>');
-          console.log(message.body);
-        }
-      });
-    });
-  }
+  // initializeWebSocketConnection() {
+  //   const ws = new SockJS(this.serverUrl);
+  //   this.stompClient = Stomp.over(ws);
+  //   const that = this;
+  //   // tslint:disable-next-line:only-arrow-functions
+  //   this.stompClient.connect({}, function(frame) {
+  //     that.stompClient.subscribe('/chat', (message) => {
+  //       if (message.body) {
+  //         $('.chat').append('<div class=\'message\'>' + message.body + '</div>');
+  //         console.log(message.body);
+  //       }
+  //     });
+  //   });
+  // }
 
   sendMessage(message) {
-    this.stompClient.send('/app/send/message', {}, message);
+    this.webSocketAPI._send(message);
     $('#input').val('');
+  }
+
+  massageFormat(message) {
+    this.mmm = message;
   }
 
 
