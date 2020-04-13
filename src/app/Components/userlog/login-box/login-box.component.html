@@ -1,0 +1,30 @@
+
+
+<div class="logComp">
+
+  <div class="logCompDiv"><h1>Choose the way to Enter</h1></div>
+
+
+  <div class="logCompDiv">
+    <mat-form-field>
+      <mat-label>UserName</mat-label>
+      <input [(ngModel)]="UserName" matInput>
+    </mat-form-field>
+  </div>
+
+  <div class="logCompDiv">
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input [(ngModel)]="Password"  matInput>
+    </mat-form-field>
+  </div>
+
+
+  <div class="logCompDiv">
+    <button mat-button routerLink="/chat"  (click)="login()" class="mat-button">Log-IN</button>
+    <button mat-button class="mat-button">Register</button>
+  </div>
+
+  <div class="logCompDiv">warning slot</div>
+</div>
+

@@ -1,0 +1,26 @@
+
+.massageBlock {
+  width: 50%;
+  height: 75%;
+  background: snow;
+  position: absolute;
+  margin-top: 20px;
+  left: 36%;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 200px;
+  opacity: 50%;
+  display: grid;
+  grid-template-rows: 1fr 0.2fr;
+}
+
+.infoBlock {
+  width: 30%;
+  height: 75%;
+  background: #5d2bff;
+  position: absolute;
+  margin-top: 20px;
+  left: 5%;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+
+}

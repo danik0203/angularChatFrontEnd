@@ -1,0 +1,23 @@
+
+.login-Box {
+
+  width: 25%;
+  height: 35%;
+
+
+  position: absolute;
+  top: 20%;
+  left: 10%;
+}
+
+h1 {
+  color: #c7a44c;
+
+  font-size: 55px;
+}
+
+.title {
+  position: absolute;
+  top: 8%;
+  left: 10%;
+}

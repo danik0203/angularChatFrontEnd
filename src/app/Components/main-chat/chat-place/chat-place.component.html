@@ -1,0 +1,27 @@
+<div class="chatGrid">
+  <div >Hello {{this.user.GetUserName()}} </div>
+
+  <div class="massageBlock">
+
+    <div class="info"></div>
+    <div class="inputZone" style="background: chartreuse">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Favorite food</mat-label>
+          <input matInput id="Input" [(ngModel)]="MassageInput" placeholder="write something">
+        </mat-form-field>
+      </form>
+      <button mat-button (click)="SendMassage()">Send</button>
+    </div>
+
+
+
+
+
+  </div>
+  <div class="infoBlock" id="massageBlock" style="background: aqua">
+      <div class="chat">
+        <div class="message"></div>
+      </div>
+  </div>
+</div>
