@@ -18,8 +18,8 @@ export class ChatPlaceComponent implements OnInit {
 
   cons = 0;
   user: User;
-  date: Date;
-  webSocketAPI;
+  date: Date = new Date();
+  webSocketAPI = new WebSocketAPI();
 
   @Input() messageInput = '';
   messageOnTheScreen: string;
@@ -28,9 +28,16 @@ export class ChatPlaceComponent implements OnInit {
 
   constructor() {
 
-    console.log('ddddsasdsad');
+    if (UsersService.prototype.getUser() !== undefined) {
+      this.user = UsersService.prototype.getUser();
+    } else {
+      this.user = new User('Admin', 'Admin');
+    }
 
-    this.webSocketAPI = new WebSocketAPI();
+
+  }
+
+  ngOnInit(): void {
 
     this.webSocketAPI._componentAdd(new ChatPlaceComponent());
     this.webSocketAPI._connect();
@@ -38,39 +45,33 @@ export class ChatPlaceComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    console.log('88888888888888888888888888888888888888888');
-    if (UsersService.prototype.getUser() !== undefined) {
-      this.user = UsersService.prototype.getUser();
-    } else {
-      this.user = new User('Admin', 'Admin');
-    }
-
-  }
-
 
   SendMassage(input: string) {
-    this.messageInput = input;
+    this.messageInput = this.user.GetUserName() + ': ' + input;
     console.log('massage is: ' + this.messageInput);
     this.sendMessage(this.messageInput);
-    this.pushMassage(this.messageInput);
+    $('#Input').val('');
   }
 
   sendMessage(message) {
     console.log('sending message:');
     this.webSocketAPI._send(message);
+
   }
 
   pushMassage(message: string) {
 
-    console.log('pushing message:');
     if (message !== '') {
       const sendDate = this.date.getHours() + ':' + this.date.getMinutes();
-      console.log('in');
-      this.messages.push(sendDate + '  ' + this.user.GetUserName() + '-  ' + message);
+      this.messageOnTheScreen = sendDate + ' ' + message;
+      const newDiv = document.createElement('div');
+      const newContent = document.createTextNode(this.messageOnTheScreen);
+      newDiv.append(newContent);
+      newDiv.className = 'message';
+      const currentDiv = document.getElementById('chatBlock');
+      document.getElementsByClassName('message').item(document.getElementsByClassName('message').length - 1).className = 'message';
+      currentDiv.appendChild(newDiv);
       this.messageInput = '';
-      $('#input').val('');
-      // console.log(this.messages[0]);
     }
   }
 

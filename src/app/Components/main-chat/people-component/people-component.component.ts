@@ -8,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 export class PeopleComponentComponent implements OnInit {
 
   constructor() {
-    console.log('222222222222222222222222222');
+
   }
 
   ngOnInit(): void {

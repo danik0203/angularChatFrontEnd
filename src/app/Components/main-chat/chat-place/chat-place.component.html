@@ -8,18 +8,21 @@
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>MassageInput</mat-label>
-          <input matInput id="Input" [value]="messageInput" #Input placeholder="write something">
+          <input matInput id="Input"  #Input placeholder="write something">
         </mat-form-field>
       </form>
       <button mat-button (click)="SendMassage(Input.value)">Send</button>
     </div>
 
 
+    <!--   צריך לעשות כך שדיב יראה במצורה אחרת את הקונטנט-->
+
   </div>
   <div class="infoBlock" id="massageBlock" style="background: aqua">
-    <div *ngFor="let message of messages">
-      <div class="chat" [innerHtml]="message"></div>
-      <!--      <div class="massage">fyhjfgh</div>-->
+    <div id="chatBlock">
+      <div class="message"></div>
+
+
     </div>
   </div>
 </div>

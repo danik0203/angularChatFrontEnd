@@ -19,17 +19,15 @@ export class WebSocketAPI {
 
   _connect() {
     console.log('Initialize WebSocket Connection');
-    console.log('--------------------------------------------------------');
+
     const that = this.that;
     const ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
 
     // tslint:disable-next-line:only-arrow-functions
     this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe('/chat', that.subError(), (message) => {
+      that.stompClient.subscribe('/chat', (message) => {
         if (message.body) {
-          alert('we Got the message' + message.body);
-          console.log('message is here');
           that.onMessageReceived(message.body);
 
         } else {
@@ -73,6 +71,7 @@ export class WebSocketAPI {
 
   onMessageReceived(message) {
     console.log('Message Recieved from Server :: ' + message);
-    this.chatComponent.pushMassage(JSON.stringify(message.body));
+    console.log(message);
+    this.chatComponent.pushMassage(message);
   }
 }
