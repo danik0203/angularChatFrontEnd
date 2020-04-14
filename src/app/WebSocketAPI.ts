@@ -3,29 +3,53 @@ import * as SockJS from 'sockjs-client';
 import {ChatPlaceComponent} from './Components/main-chat/chat-place/chat-place.component';
 
 export class WebSocketAPI {
-  webSocketEndPoint = 'http://localhost:8080/ws';
+  webSocketEndPoint = 'http://localhost:8080/socket';
   topic = '/send/message';
   stompClient: any;
   chatComponent: ChatPlaceComponent;
   that = this;
 
-  constructor(chatComponent: ChatPlaceComponent) {
+  constructor() {
+  }
+
+  _componentAdd(chatComponent: ChatPlaceComponent) {
     this.chatComponent = chatComponent;
   }
 
+
   _connect() {
     console.log('Initialize WebSocket Connection');
+    console.log('--------------------------------------------------------');
+    const that = this.that;
     const ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
-    // tslint:disable-next-line:variable-name only-arrow-functions
-    this.that.stompClient.connect({}, function(Frame) {
-      this.that.stompClient.subscribe(this.that.topic, function(sdkEvent) {
-        this.that.onMessageReceived(sdkEvent);
+
+    // tslint:disable-next-line:only-arrow-functions
+    this.stompClient.connect({}, function(frame) {
+      that.stompClient.subscribe('/chat', that.subError(), (message) => {
+        if (message.body) {
+          alert('we Got the message' + message.body);
+          console.log('message is here');
+          that.onMessageReceived(message.body);
+
+        } else {
+          alert('no message');
+          console.log('no message');
+        }
+
       });
 
     });
   }
 
+  private subError() {
+    alert('error');
+  }
+
+
+  private subComplete(message) {
+    alert(message.body);
+  }
 
   // _disconnect() {
   //   if (this.stompClient !== null) {
@@ -44,7 +68,7 @@ export class WebSocketAPI {
 
   _send(message) {
     console.log('calling logout api via web socket');
-    this.stompClient.send('/app/chat', {}, JSON.stringify(message));
+    this.stompClient.send('/app/send/message', {}, message);
   }
 
   onMessageReceived(message) {

@@ -9,7 +9,7 @@ export class UsersService {
   constructor() {
   }
 
-  user = new User();
+  user: User;
 
   setUser(user: User) {
     this.user = user;

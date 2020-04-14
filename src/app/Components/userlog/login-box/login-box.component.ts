@@ -14,7 +14,7 @@ export class LoginBoxComponent implements OnInit {
 
   @Input() UserName: string;
   @Input() Password: string;
-  user: User = new User();
+  user: User;
 
 
   constructor(private router: Router) {
@@ -27,7 +27,7 @@ export class LoginBoxComponent implements OnInit {
   login() {
     console.log(this.UserName + ' ' + this.Password);
 
-    this.user.Usernew(this.UserName, this.Password);
+    this.user = new User(this.UserName, this.Password);
     console.log(this.user.GetUserName());
     UsersService.prototype.setUser(this.user);
 

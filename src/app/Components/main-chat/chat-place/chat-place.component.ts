@@ -2,10 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../classes/User';
 import {UsersService} from '../../../services/users.service';
 import {WebSocketAPI} from '../../../WebSocketAPI';
-
-
-import * as Stomp from 'stompjs';
-import * as SockJS from 'sockjs-client';
 import {$} from 'jquery';
 
 
@@ -20,10 +16,10 @@ export class ChatPlaceComponent implements OnInit {
   private title = 'WebSockets chat';
   private stompClient;
 
-
-  user = new User();
-  date = new Date();
-  webSocketAPI: WebSocketAPI;
+  cons = 0;
+  user: User;
+  date: Date;
+  webSocketAPI;
 
   @Input() messageInput = '';
   messageOnTheScreen: string;
@@ -32,16 +28,22 @@ export class ChatPlaceComponent implements OnInit {
 
   constructor() {
 
+    console.log('ddddsasdsad');
 
-    // this.webSocketAPI = new WebSocketAPI(new ChatPlaceComponent());
-    // this.webSocketAPI._connect();
+    this.webSocketAPI = new WebSocketAPI();
+
+    this.webSocketAPI._componentAdd(new ChatPlaceComponent());
+    this.webSocketAPI._connect();
+
+
   }
 
   ngOnInit(): void {
+    console.log('88888888888888888888888888888888888888888');
     if (UsersService.prototype.getUser() !== undefined) {
       this.user = UsersService.prototype.getUser();
     } else {
-      this.user.Usernew('Admin', 'Admin');
+      this.user = new User('Admin', 'Admin');
     }
 
   }
@@ -56,7 +58,7 @@ export class ChatPlaceComponent implements OnInit {
 
   sendMessage(message) {
     console.log('sending message:');
-  //  this.webSocketAPI._send(message);
+    this.webSocketAPI._send(message);
   }
 
   pushMassage(message: string) {
@@ -67,6 +69,7 @@ export class ChatPlaceComponent implements OnInit {
       console.log('in');
       this.messages.push(sendDate + '  ' + this.user.GetUserName() + '-  ' + message);
       this.messageInput = '';
+      $('#input').val('');
       // console.log(this.messages[0]);
     }
   }

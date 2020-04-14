@@ -9,7 +9,6 @@ import {Component, OnInit} from '@angular/core';
 export class MainChatComponent implements OnInit {
 
   private serverUrl = 'http://localhost:8080/socket';
-  private title = 'WebSockets chat';
   private stompClient;
 
   constructor() {
