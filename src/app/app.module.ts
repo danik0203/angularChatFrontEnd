@@ -4,6 +4,8 @@ import {NgModule} from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 import {AppComponent} from './app.component';
@@ -15,7 +17,6 @@ import {FormsModule} from '@angular/forms';
 import {ChatPlaceComponent} from './Components/main-chat/chat-place/chat-place.component';
 import {PeopleComponentComponent} from './Components/main-chat/people-component/people-component.component';
 import {Routes, RouterModule, Router} from '@angular/router';
-import {ExperemantComponent} from './Components/experemant/experemant.component';
 
 
 import {AppRoutingModule} from './app-routing.module';
@@ -24,7 +25,7 @@ import {AppRoutingModule} from './app-routing.module';
 const appRouters: Routes = [
   {path: '', component: UserlogComponent},
   {path: 'chatComp', component: MainChatComponent},
-  {path: 'experiment', component: ExperemantComponent}
+
 ];
 
 
@@ -36,14 +37,16 @@ const appRouters: Routes = [
     LoginBoxComponent,
     ChatPlaceComponent,
     PeopleComponentComponent,
-    ExperemantComponent
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
+    MatExpansionModule,
     MatButtonModule,
+    MatSidenavModule,
     MatFormFieldModule,
     RouterModule.forRoot(appRouters),
     AppRoutingModule

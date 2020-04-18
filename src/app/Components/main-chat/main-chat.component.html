@@ -1,10 +1,30 @@
 <div class="mainDiv">
 
-  <div class="ChatDiv">
-    <app-chat-place></app-chat-place>
-  </div>
-  <div class="ChatRoomsDiv">
-    <app-people-component></app-people-component>
-  </div>
+
+  <mat-drawer-container class="chatBlock" autosize>
+    <mat-drawer #drawer class="sideNav" mode="side">
+      <p>People to talk</p>
+
+    </mat-drawer>
+
+
+<!--    (click)="drawer.toggle()-->
+
+      <div class="chatContent">
+        <div (click)="drawer.toggle()" class="chatsButtonNav"></div>
+
+        <div class="chat">
+          <app-chat-place></app-chat-place>
+        </div>
+
+      </div>
+
+
+
+  </mat-drawer-container>
+
 
 </div>
+
+
+

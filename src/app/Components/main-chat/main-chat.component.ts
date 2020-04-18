@@ -10,7 +10,8 @@ export class MainChatComponent implements OnInit {
 
   private serverUrl = 'http://localhost:8080/socket';
   private stompClient;
-
+  public showPeople = false;
+  showFiller = false;
   constructor() {
 
   }
@@ -18,6 +19,10 @@ export class MainChatComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showPeopleFunc() {
+    window.document.getElementById('expansionField').style.visibility = 'visible';
+    this.showPeople = !this.showPeople;
+  }
 
 
 }

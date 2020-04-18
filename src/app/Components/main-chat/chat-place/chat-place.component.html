@@ -1,28 +1,47 @@
 <div class="chatGrid">
-  <div>Hello {{this.user.GetUserName()}} </div>
 
-  <div class="massageBlock">
-
-    <div class="info"></div>
-    <div class="inputZone" style="background: chartreuse">
-      <form class="example-form">
-        <mat-form-field class="example-full-width">
-          <mat-label>MassageInput</mat-label>
-          <input matInput id="Input"  #Input placeholder="write something">
-        </mat-form-field>
-      </form>
-      <button mat-button (click)="SendMassage(Input.value)">Send</button>
-    </div>
+  <div class="info">
+    <div class="imageInfo"></div>
+    <div class="groupInfo"></div>
+  </div>
 
 
-    <!--   צריך לעשות כך שדיב יראה במצורה אחרת את הקונטנט-->
+  <div id="chatBlock" class="messagesArea">
+
+    <!--=========================-->
+    <!--    Concept-->
+    <!--=========================-->
+
+
+    <!--    <div id="messageBlock" class="messageBlock">-->
+
+    <!--      <div class="personNameBlock">-->
+    <!--        <p class="messageValue">Daniel</p>-->
+    <!--      </div>-->
+    <!--      <div class="message">-->
+    <!--        <p id="MessageText" class="messageValue">im fine-->
+    <!--          sdjjjjjjjjjjjjjjjjjjjjjjjjjjj/njjjjjjjjjjj-->
+    <!--          jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj-->
+    <!--          jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj-->
+    <!--          lasjd'alsdjhyfvgklgvylokuyfuyfluyfa</p>-->
+    <!--      </div>-->
+    <!--      <div class="sendTime">-->
+    <!--        <p id="time" class="messageValue"></p>-->
+    <!--      </div>-->
+    <!--    </div>-->
+  </div>
+
+  <div class="messageInput">
+
+    <mat-form-field class="inputFill" floatLabel="never" appearance="outline">
+      <mat-label>Massage</mat-label>
+      <input id="input" matInput [(ngModel)]="messageInput">
+    </mat-form-field>
+
+
+    <button mat-raised-button class="buttons"  (click)="SendMassage(messageInput)">Send</button>
 
   </div>
-  <div class="infoBlock" id="massageBlock" style="background: aqua">
-    <div id="chatBlock">
-      <div class="message"></div>
 
 
-    </div>
-  </div>
 </div>

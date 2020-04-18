@@ -4,9 +4,10 @@
 {
   width: 100%;
   height: 100%;
-  background-image: url("../backGround/logBackground.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #7ec761;
+  /*background-image: url("~assets/logBackground.jpg");*/
+  /*background-repeat: no-repeat;*/
+  /*background-size: cover;*/
 
   position: absolute;
   top: 0;
